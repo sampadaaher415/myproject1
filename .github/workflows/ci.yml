@@ -1,19 +1,24 @@
 name: CI
+
 on:
   push:
   pull_request:
+
 env:
-   APP-NAME: my-app
+  APP_NAME: my-app
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     env:
       NODE_ENV: production
-     steps:
-       - name: Show them
-         env:
-           GREETING: hello
-         run: echo "$APP_NAME $NODE_ENV $GREETING"  
+
+    steps:
+      - name: Show them
+        env:
+          GREETING: hello
+        run: echo "$APP_NAME $NODE_ENV $GREETING"
 
   
 
