@@ -1,25 +1,21 @@
-name: CI
+name: Deploy
 
 on:
   push:
-  pull_request:
-
-env:
-  APP_NAME: my-app
+    branches:
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
-    env:
-      NODE_ENV: production
-
     steps:
-      - name: Show them
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy
         env:
-          GREETING: hello
-        run: echo "$APP_NAME $NODE_ENV $GREETING"
-
-  
-
+          TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          echo "Deploying with token length: ${#TOKEN}"
   
