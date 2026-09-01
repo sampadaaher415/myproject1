@@ -1,4 +1,4 @@
-name: Deploy
+name: Node Matrix Test
 
 on:
   push:
@@ -6,15 +6,18 @@ on:
       - main
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    strategy:
+      matrix:
+        node: ["18", "20", "22"]
 
-      - name: Deploy
-        env:
-          TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-        run: |
-          echo "Deploying with token length: ${#TOKEN}"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: node --version
