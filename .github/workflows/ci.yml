@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature-login
 
 jobs:
   test:
@@ -11,12 +12,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Runnuing tests"
+      - run: echo "Running tests"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
     steps:
-   deploy:
-     needs: test
-     runs-on: ubantu-latest
-     steps:
-       - uses: actions/checkout@4
-       - run: echo "Deploying to production" 
+      - uses: actions/checkout@v4
+      - run: echo "Deploying to production"
        
